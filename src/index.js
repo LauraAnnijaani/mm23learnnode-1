@@ -1,6 +1,7 @@
 import './style.scss';
 import { createApp } from 'vue';
 import App from './App.vue'; 
+import "bulma/css/bulma.css";
 
 import { createMemoryHistory, createWebHashHistory, createWebHistory , createRouter } from 'vue-router';
 
@@ -11,6 +12,7 @@ import NotificationExample from './pages/NotificationExample.vue';
 import ChuckNorris from './pages/ChuckNorris.vue';
 import RickAndMorty from './pages/RickAndMorty.vue';
 import Maps from './pages/Maps.vue';
+
 
 const routes = [
     { path: '/', component: ToDo, name: 'ToDo'},
