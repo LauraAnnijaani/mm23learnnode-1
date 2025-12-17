@@ -5,27 +5,51 @@ import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet/dist/images/marker-shadow.png';
 import { onMounted } from 'vue';
 
-let map = null;
-onMounted(() => {
-    map = L.map('map').setView([51.505, -0.09], 13);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+const HOME_COORDS = [51.505, -0.09];
+const HOME_ZOOM = 15;
 
-    let marker = L.marker([51.5, -0.09]).addTo(map);
+let map = null;
+
+onMounted(() => {
+  map = L.map('map').setView(HOME_COORDS, HOME_ZOOM);
+
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  L.marker(HOME_COORDS)
+    .addTo(map)
+    .bindPopup('🏠 Home')
+    .openPopup();
 });
 
-function goTo(coords, zoom){
+function goTo(coords, zoom) {
+  if (map) {
     map.flyTo(coords, zoom);
+  }
 }
 </script>
+
 <template>
-    <button class="button is-primary" @click="goTo([59.42691, 24.74338], 18)">Go To School</button>
+  <div class="section">
+    <h1 class="title">Maps</h1>
+
+    <button
+      class="button is-primary mb-4"
+      @click="goTo(HOME_COORDS, HOME_ZOOM)"
+    >
+      Go to Home
+    </button>
+
     <div id="map"></div>
+  </div>
 </template>
+
 <style scoped>
-#map { 
-    height: 90vh; 
+#map {
+  height: 90vh;
+  border-radius: 8px;
 }
 </style>
